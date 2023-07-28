@@ -62,7 +62,7 @@ class Activos(models.Model):
 class CatalogoCuentas(models.Model):
     id_catalogo = models.CharField(blank=True, max_length=100)
     id_created = models.CharField(blank=True, max_length=100)
-    country = models.CharField(blank=True, max_length=100)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     date = models.DateField( auto_now=True )
     type_catalog = models.CharField(blank=True, max_length=100)
 
@@ -84,4 +84,4 @@ class CatalogoCuentas(models.Model):
     # contador = models.ForeingKey()
     
     def __str__(self):
-        return self.name
+        return self.id_catalogo

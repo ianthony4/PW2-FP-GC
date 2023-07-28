@@ -59,5 +59,22 @@ class RawCuentaForm(forms.Form):
                 }
             ) 
         )
+ 
+class RawCountryForm(forms.Form):
+    name = forms.CharField()
+    description = forms.CharField() 
     
+class RawActivoForm(forms.Form):
+    name = forms.CharField()   
+    saldo = forms.DecimalField()
+    type = forms.CharField()
+    subtype = forms.CharField()
+    subsubtype = forms.CharField()
+
+class RawPasivoForm(forms.Form):
+    name = forms.CharField()   
+    saldo = forms.DecimalField()
+    type = forms.CharField()
+    subtype = forms.CharField()
+    subsubtype = forms.CharField()
     
