@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.urls import path
 from .views import GeneratePdf
-from .views import RawFormCuenta,getResponse
+from .views import newCatalogo,getResponse
 
 urlpatterns = [
-    path('', RawFormCuenta, name = 'cuenta'),
+    path('', newCatalogo, name = 'catalogo'),
     path('get/', getResponse, name = 'response'),
     path('renderpdf/',GeneratePdf.as_view(), name="pdf"),
 ]

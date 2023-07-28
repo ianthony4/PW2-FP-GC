@@ -7,12 +7,14 @@ from .utils import render_to_pdf #created in step 4
 # Create your views here.
 
 
-def RawFormCuenta(request):
-    form = RawCuentaForm()
+def newCatalogo(request):
+    form = RawCatalogoForm()
     context = {
         'form': form,
     }
-    return render(request, 'create.html',context) 
+    print(form)
+    return render(request, 'createNewCatalog.html',context) 
+
 def getResponse(request):
     response = request.POST["type_account"]
     print(response)
