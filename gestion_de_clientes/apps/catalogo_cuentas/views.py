@@ -19,6 +19,7 @@ def newCatalogo(request):
 class CatalogoDetailView(DetailView):
     model = CatalogoCuentas
     template_name = 'catalogo_detail.html'
+    context_object_name = 'catalogo'
 
 def newCountryForm(request):
     form = RawCountryForm()
