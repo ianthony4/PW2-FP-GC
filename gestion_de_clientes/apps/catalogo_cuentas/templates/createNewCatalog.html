@@ -18,6 +18,16 @@
         {% for field in form %}
           <div class="form-group">
             {{ field.label_tag }} {{ field }}
+            {% if field.html_name == "country" %}<br>
+            <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newCountry/" title="Add another country"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+            {% endif %}
+            {% if field.html_name == "activos" %}<br>
+            <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newActivo/" title="Add another activo"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+            {% endif %}
+            {% if field.html_name == "pasivos" %}<br>
+            <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newPasivo/" title="Add another pasivos"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+            {% endif %}
+
           </div>
         {% endfor %}
         <input type="submit" value="Guardar"/>
