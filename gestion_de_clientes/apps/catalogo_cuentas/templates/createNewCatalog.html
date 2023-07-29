@@ -21,6 +21,9 @@
             {% if field.html_name == "country" %}<br>
             <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newCountry/" title="Add another country"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
             {% endif %}
+            {% if field.html_name == "banco" %}<br>
+            <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newBanco/" title="Add another Banco"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+            {% endif %}
             {% if field.html_name == "activos" %}<br>
             <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newActivo/" title="Add another activo"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
             {% endif %}
