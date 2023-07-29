@@ -4,6 +4,7 @@ from .models import CatalogoCuentas
 from django.views.generic import View,DetailView
 from django.template.loader import get_template
 from .utils import render_to_pdf #created in step 4
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
@@ -67,3 +68,18 @@ class GeneratePdf(View):
             response['Content-Disposition'] = content
             return response
         return HttpResponse('No Found')
+    
+def loginView(request):
+    if request.method == "POST":
+        us = request.POST["user"]
+        ps = request.POST["pass"]
+        user = authenticate(request, username=us,password=ps)
+        if user is not None:
+            login(request, user)
+            # Redireccionar a la página deseada después del inicio de sesión exitoso
+            return redirect("catalogo")
+        else:
+            # Mostrar un mensaje de error en la plantilla (opcional)
+            error_message = "Nombre de usuario o contraseña incorrectos."
+            return render(request, "login.html", {'error_message': error_message})
+    return render(request, 'login.html')
