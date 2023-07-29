@@ -15,60 +15,11 @@
     <div class="container">
       <h2>NEW ACCOUNT</h2>
       <form class="form-vertical" action="#" method="POST">{% csrf_token %}
+        {% for field in form %}
         <div class="form-group">
-            <label>Tipo Activo</label>
-            <input type="text" >
+            {{ field.label_tag }} {{ field }} <br>
         </div>
-        <div class="form-group">
-            <label>Sub Tipo Activo</label>
-            <input type="text" >
-        </div>
-        <div class="form-group">
-            <label>Nombre Activo</label>
-            <input type="text" >
-        </div>
-        <div class="form-group">
-            <label>Tipo Activo</label>
-            <input type="number" >
-        </div>
-        <input type="submit" value="Guardar"/>
-      </form>
-    </div>
-  </body>
-</html>
-
-        <input type="submit" value="Guardar"/>
-      </form>
-    </div>
-  </body>
-</html>
-
-        <input type="submit" value="Guardar"/>
-      </form>
-    </div>
-  </body>
-</html>
-
-        <div class="form-group">
-            <label>Tipo Activo</label>
-            <input type="text" >
-        </div>
-        <input type="submit" value="Guardar"/>
-      </form>
-    </div>
-  </body>
-</html>
-
-        <div class="form-group">
-            <label>Tipo Activo</label>
-            <input type="text" >
-        </div>
-        <input type="submit" value="Guardar"/>
-      </form>
-    </div>
-  </body>
-</html>
-
+        {% endfor %}
         <input type="submit" value="Guardar"/>
       </form>
     </div>
