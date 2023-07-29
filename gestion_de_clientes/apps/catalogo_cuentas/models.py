@@ -33,9 +33,10 @@ class Cuenta(models.Model):
     id_cuenta = models.IntegerField(blank=True, )
     mov_deudor = models.IntegerField(blank=True, )
     mov_acreedor = models.IntegerField(blank=True, )
-
+    name = models.CharField(max_length=100)
+    
     def __str__(self):
-        return self.id_cuenta
+        return self.name
 
 class Pasivos(models.Model):
     id_pasivo = models.IntegerField(blank=True, )

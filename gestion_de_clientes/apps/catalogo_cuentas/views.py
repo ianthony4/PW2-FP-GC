@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
 from .forms import RawCatalogoForm,RawCuentaForm,RawCountryForm,RawActivoForm,RawPasivoForm
-from .models import CatalogoCuentas,Country,Pasivos,Activos
+from .models import CatalogoCuentas,Country,Pasivos,Activos,Cuenta
 from django.views.generic import View,DetailView
 from django.template.loader import get_template
 from .utils import render_to_pdf #created in step 4
@@ -102,6 +102,29 @@ def newActivoForm(request):
         'form': form,
     }
     return render(request, 'newActivo.html',context) 
+
+def newAccountForm(request):
+    if request.method == 'POST':
+        type_account = request.POST["type_account"]
+        pasivo = request.POST["pasivo"]
+        activo = request.POST["activo"]
+        name_account = request.POST["name"]
+        type_account = request.POST["type_account"]
+        date_account = date.today()
+        mov_deudor = pasivo
+        mov_acreedor = activo
+        id_cuenta = abs(int(hash(name_account)))
+        
+        if name_account is not None:
+            Cuenta.objects.create(date=date_account,name=name_account,type_account=type_account,pasivos=pasivo,activos=activo,mov_deudor=mov_deudor,mov_acreedor=mov_acreedor,id_cuenta=id_cuenta)
+            return redirect("/")
+
+    form = RawCuentaForm()
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'newAccount.html',context) 
 class GeneratePdf(View): 
     def get(self, request, *args, **kwargs):
 

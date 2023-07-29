@@ -65,7 +65,10 @@ class RawCuentaForm(forms.Form):
                 }
             ) 
         )
- 
+    name = forms.CharField()
+    pasivo = forms.DecimalField()
+    activo = forms.DecimalField()
+    
 class RawCountryForm(forms.Form):
     name = forms.CharField()
     description = forms.CharField()
