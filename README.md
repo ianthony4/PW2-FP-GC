@@ -5,9 +5,9 @@
 
 # Integrantes
 - Chaisa Fernandez, Anthony Leonel
-- Sulla Quispe, Vladimir Arturo
-- Quenta Ahumada Carlos Alberto
 - Martell Villanueva, Gabriela Vanessa
+- Quenta Ahumada Carlos Alberto
+- Sulla Quispe, Vladimir Arturo
 
 # URL GITHUB
 
