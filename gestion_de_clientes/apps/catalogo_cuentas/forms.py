@@ -31,16 +31,16 @@ class RawCatalogoForm(forms.Form):
             empty_label="Selecciona pais",
         )
 
-    activos = forms.ModelChoiceField(
+    activos = forms.ModelMultipleChoiceField(
             queryset=Activos.objects.all(),
             required=False,
-            empty_label="Selecciona activos",
+            widget=forms.CheckboxSelectMultiple
         )
 
-    pasivos = forms.ModelChoiceField(
+    pasivos = forms.ModelMultipleChoiceField(
             queryset=Activos.objects.all(),
             required=False,
-            empty_label="Selecciona activos",
+            widget=forms.CheckboxSelectMultiple
         )
 
     patrimonio_neto =  forms.DecimalField()
@@ -49,6 +49,12 @@ class RawCatalogoForm(forms.Form):
     ingresos = forms.DecimalField()
 
     saldo_intermediario = forms.DecimalField()
+
+    cuentas_de_orden = forms.ModelMultipleChoiceField(
+            queryset=Cuenta.objects.all(),
+            required=False,
+            widget=forms.CheckboxSelectMultiple
+        )
     
 class RawCuentaForm(forms.Form):
     type_account = forms.ChoiceField(
