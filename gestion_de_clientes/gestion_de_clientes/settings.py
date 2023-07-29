@@ -75,12 +75,27 @@ WSGI_APPLICATION = 'gestion_de_clientes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Recordar instalar "pip install psycopg2"
+
+# PARA POSTGRESTSQL
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'nombre_de_base_de_datos',
+#        'USER': 'usuario_de_base_de_datos',
+#        'PASSWORD': 'contraseña_de_base_de_datos',
+#        'HOST': 'host_de_base_de_datos',  # Normalmente 'localhost' para configuraciones de desarrollo local
+#        'PORT': '5432',  # Normalmente 5432 para PostgreSQL
+#    }
+#}
 
 
 # Password validation
