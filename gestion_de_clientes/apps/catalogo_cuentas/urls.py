@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from .views import GeneratePdf
-from .views import newCatalogo,newCountryForm,saveCountry,newPasivoForm,newActivoForm,CatalogoDetailView, loginView
+from .views import newCatalogo,newCountryForm,saveCountry,newPasivoForm,newActivoForm,CatalogoDetailView, loginView, homeView
 
 urlpatterns = [
     path('', newCatalogo, name = 'catalogo'),
@@ -12,5 +12,6 @@ urlpatterns = [
     path('newActivo/', newActivoForm, name = 'response'),
 
     path('login/', loginView, name='login'),
+    path('home/', homeView, name='home'),
     path('<int:pk>',CatalogoDetailView.as_view())
 ]

@@ -69,6 +69,9 @@ class GeneratePdf(View):
             return response
         return HttpResponse('No Found')
     
+def homeView(request):
+    return render(request, 'home.html')
+
 def loginView(request):
     if request.method == "POST":
         us = request.POST["user"]
