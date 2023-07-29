@@ -6,6 +6,7 @@ from .views import (newCatalogo,
                     newPasivoForm,
                     newAccountForm,
                     newActivoForm,
+                    newBancoForm,
                     CatalogoDetailView,
                     ActivoDetailView,
                     PasivoDetailView
@@ -13,10 +14,12 @@ from .views import (newCatalogo,
 
 urlpatterns = [
     path('', newCatalogo, name = 'catalogo'),
+    
     path('newCountry/', newCountryForm, name = 'response'),
     path('newPasivo/',newPasivoForm , name = 'response'),
     path('newActivo/', newActivoForm, name = 'response'),
     path('newAccount/', newAccountForm, name = 'response'),
+    path('newBank/', newBancoForm, name = 'response'),
 
     path('catalogo/<int:pk>',CatalogoDetailView.as_view()),
     path('activo/<int:pk>',ActivoDetailView.as_view()),

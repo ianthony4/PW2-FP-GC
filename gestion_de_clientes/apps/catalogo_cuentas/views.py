@@ -1,13 +1,27 @@
 from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
-from .forms import RawCatalogoForm,RawCuentaForm,RawCountryForm,RawActivoForm,RawPasivoForm
-from .models import CatalogoCuentas,Country,Pasivos,Activos,Cuenta
+from .forms import RawCatalogoForm,RawCuentaForm,RawCountryForm,RawActivoForm,RawPasivoForm,RawBancoForm
+from .models import CatalogoCuentas,Country,Pasivos,Activos,Cuenta,Banco
 from django.views.generic import View,DetailView
 from django.template.loader import get_template
 from .utils import render_to_pdf #created in step 4
 from datetime import date
 # Create your views here.
 
+class CatalogoDetailView(DetailView):
+    model = CatalogoCuentas
+    template_name = 'catalogo_detail.html'
+    context_object_name = 'catalogo'
 
+class ActivoDetailView(DetailView):
+    model = Activos
+    template_name = 'activo_detail.html'
+    context_object_name = 'activo'
+
+class PasivoDetailView(DetailView):
+    model = Pasivos
+    template_name = 'pasivo_detail.html'
+    context_object_name = 'pasivo'
+    
 def newCatalogo(request):
 
     if request.method=='POST':
@@ -32,22 +46,6 @@ def newCatalogo(request):
 
     return render(request, 'createNewCatalog.html',context) 
 
-class CatalogoDetailView(DetailView):
-    model = CatalogoCuentas
-    template_name = 'catalogo_detail.html'
-    context_object_name = 'catalogo'
-
-class ActivoDetailView(DetailView):
-    model = Activos
-    template_name = 'activo_detail.html'
-    context_object_name = 'activo'
-
-class PasivoDetailView(DetailView):
-    model = Pasivos
-    template_name = 'pasivo_detail.html'
-    context_object_name = 'pasivo'
-    
-
 def newCountryForm(request):
     if request.method=='POST':
         name = request.POST['name']
@@ -63,6 +61,22 @@ def newCountryForm(request):
     }
     
     return render(request, 'newCountry.html',context) 
+def newBancoForm(request):
+    if request.method=='POST':
+        name = request.POST['name']
+        description = request.POST['description']
+
+        if name is not None:
+            Country.objects.create(id_country = abs(int(hash(name))),name=name, description=description)
+            return redirect('/')
+    
+    form = RawBancoForm()
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'newBanco.html',context) 
+
 
 def newPasivoForm(request):
     if request.method=='POST':
@@ -81,7 +95,6 @@ def newPasivoForm(request):
     context = {
         'form': form,
     }
-    print(form)
     return render(request, 'newPasivo.html',context) 
 
 def newActivoForm(request):

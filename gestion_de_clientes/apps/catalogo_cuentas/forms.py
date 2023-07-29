@@ -1,4 +1,4 @@
-from .models import Cuenta,Activos,Pasivos,Country
+from .models import Cuenta,Activos,Pasivos,Country,Banco
 from django import forms
 from django.utils.safestring import mark_safe
 
@@ -30,6 +30,11 @@ class RawCatalogoForm(forms.Form):
             required=False,
             empty_label="Selecciona pais",
         )
+    banco = forms.ModelChoiceField(
+            queryset=Banco.objects.all(),
+            required=False,
+            empty_label="Selecciona banco",
+        )
 
     activos = forms.ModelMultipleChoiceField(
             queryset=Activos.objects.all(),
@@ -38,7 +43,7 @@ class RawCatalogoForm(forms.Form):
         )
 
     pasivos = forms.ModelMultipleChoiceField(
-            queryset=Activos.objects.all(),
+            queryset=Pasivos.objects.all(),
             required=False,
             widget=forms.CheckboxSelectMultiple
         )
@@ -74,6 +79,23 @@ class RawCountryForm(forms.Form):
     description = forms.CharField()
     
     name.widget.attrs.update(
+        {
+            "name":"name_country",
+        }
+    )
+    description.widget.attrs.update(
+        {
+            "name":"description_country",
+        }
+    )
+
+class RawBancoForm(forms.Form):
+    name_bank = forms.CharField()
+    description = forms.CharField()
+    type_bank = forms.CharField()
+    description = forms.CharField()
+    
+    name_bank.widget.attrs.update(
         {
             "name":"name_country",
         }

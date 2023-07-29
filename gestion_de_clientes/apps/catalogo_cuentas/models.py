@@ -2,13 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-class Caja(models.Model):
-    id_caja = models.CharField(blank=True, max_length=100)
-    saldo = models.DecimalField(blank=True, max_digits=20, decimal_places=2)
-
-    def __str__(self):
-        return self.saldo
-
 class Banco(models.Model):
     id_bank = models.CharField(blank=True, max_length=100)
     name_bank = models.CharField(blank=True, max_length=100)
@@ -66,6 +59,7 @@ class CatalogoCuentas(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     date = models.DateField( auto_now=True )
     type_catalog = models.CharField(blank=True, max_length=100)
+    banco = models.ForeignKey(Banco, on_delete=models.CASCADE )
 
     # clientes = models.ManyToManyField(Cliente)
     
