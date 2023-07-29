@@ -62,8 +62,18 @@ class RawCuentaForm(forms.Form):
  
 class RawCountryForm(forms.Form):
     name = forms.CharField()
-    description = forms.CharField() 
+    description = forms.CharField()
     
+    name.widget.attrs.update(
+        {
+            "name":"name_country",
+        }
+    )
+    description.widget.attrs.update(
+        {
+            "name":"description_country",
+        }
+    )
 class RawActivoForm(forms.Form):
     name = forms.CharField()   
     saldo = forms.DecimalField()

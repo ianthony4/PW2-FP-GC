@@ -47,9 +47,9 @@ class Pasivos(models.Model):
     saldo = models.DecimalField(blank=True,max_digits=20, decimal_places=2)
     
     def __str__(self):
-        return self.name_activo
+        return self.name_pasivo
 class Activos(models.Model):
-    id_pasivo = models.IntegerField(blank=True, )
+    id_activo = models.IntegerField(blank=True, )
     date = models.DateField(auto_now=True )
     type = models.CharField(blank=True, max_length=100)
     subtype = models.CharField(blank=True, max_length=100)
