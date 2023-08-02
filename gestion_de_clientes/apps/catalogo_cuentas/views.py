@@ -1,6 +1,17 @@
-from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
-from .forms import RawCatalogoForm,RawCuentaForm,RawCountryForm,RawActivoForm,RawPasivoForm,RawBancoForm
-from .models import CatalogoCuentas,Country,Pasivos,Activos,Cuenta,Banco
+from django.shortcuts import (render,HttpResponse,redirect,get_object_or_404)
+from .forms import (RawCatalogoForm,
+                    RawCuentaForm,
+                    RawCountryForm,
+                    RawActivoForm,
+                    RawPasivoForm,
+                    RawBancoForm)
+from .models import (CatalogoCuentas,
+                    Country,
+                    Pasivo,
+                    Activo,
+                    Cuenta,
+                    Banco)
+                    
 from django.views.generic import View,DetailView
 from django.template.loader import get_template
 from .utils import render_to_pdf #created in step 4
@@ -15,12 +26,12 @@ class CatalogoDetailView(DetailView):
     context_object_name = 'catalogo'
 
 class ActivoDetailView(DetailView):
-    model = Activos
+    model = Activo
     template_name = 'activo_detail.html'
     context_object_name = 'activo'
 
 class PasivoDetailView(DetailView):
-    model = Pasivos
+    model = Pasivo
     template_name = 'pasivo_detail.html'
     context_object_name = 'pasivo'
     
@@ -90,7 +101,7 @@ def newPasivoForm(request):
         date_pasivo = date.today()
         
         if name_pasivo is not None:
-            Pasivos.objects.create(id_pasivo=abs(int(hash(name_pasivo))), date=date_pasivo,name_pasivo=name_pasivo, saldo=saldo_pasivo, type=type_pasivo, subtype=subtype_pasivo, subsubtype=subsubtype_pasivo)
+            Pasivo.objects.create(id_pasivo=abs(int(hash(name_pasivo))), date=date_pasivo,name_pasivo=name_pasivo, saldo=saldo_pasivo, type=type_pasivo, subtype=subtype_pasivo, subsubtype=subsubtype_pasivo)
             return redirect('/')
     
     form = RawPasivoForm()
@@ -109,7 +120,7 @@ def newActivoForm(request):
         date_activo = date.today()
         
         if name_activo is not None:
-            Activos.objects.create(id_activo=abs(int(hash(name_activo))), date=date_activo,name_activo=name_activo, saldo=saldo_activo, type=type_activo, subtype=subtype_activo, subsubtype=subsubtype_activo)
+            Activo.objects.create(id_activo=abs(int(hash(name_activo))), date=date_activo,name_activo=name_activo, saldo=saldo_activo, type=type_activo, subtype=subtype_activo, subsubtype=subsubtype_activo)
             return redirect('/')
     
     form = RawActivoForm()
@@ -180,3 +191,4 @@ def loginView(request):
             error_message = "Nombre de usuario o contraseña incorrectos."
             return render(request, "login.html", {'error_message': error_message})
     return render(request, 'login.html')
+

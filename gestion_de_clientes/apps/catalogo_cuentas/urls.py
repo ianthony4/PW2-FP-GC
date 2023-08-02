@@ -1,6 +1,5 @@
 from django.contrib import admin
-from django.urls import path
-from .views import GeneratePdf
+from django.urls import path,include
 from .views import (newCatalogo,
                     newCountryForm,
                     newPasivoForm,
@@ -11,9 +10,23 @@ from .views import (newCatalogo,
                     ActivoDetailView,
                     PasivoDetailView
                     )
-from .views import newCatalogo,newCountryForm,saveCountry,newPasivoForm,newActivoForm,CatalogoDetailView, loginView, homeView
+from .views import newCatalogo,newCountryForm,newPasivoForm,newActivoForm,CatalogoDetailView, loginView, homeView
+
+from .viewsets import ActivoViewSet,PasivoViewSet
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'activos', ActivoViewSet)
+router.register(r'pasivos', PasivoViewSet)
+
 
 urlpatterns = [
+    ##############################
+    # 
+    ################################
+
+    path('rest/', include(router.urls)),
+
     path('', newCatalogo, name = 'catalogo'),
     
     path('newCountry/', newCountryForm, name = 'response'),
@@ -28,4 +41,8 @@ urlpatterns = [
     path('login/', loginView, name='login'),
     path('home/', homeView, name='home'),
     path('<int:pk>',CatalogoDetailView.as_view())
+
+
+
 ]
+

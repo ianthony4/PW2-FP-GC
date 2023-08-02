@@ -1,7 +1,5 @@
 from django.db import models
-
 # Create your models here.
-
 class Banco(models.Model):
     id_bank = models.CharField(blank=True, max_length=100)
     name_bank = models.CharField(blank=True, max_length=100)
@@ -31,7 +29,7 @@ class Cuenta(models.Model):
     def __str__(self):
         return self.name
 
-class Pasivos(models.Model):
+class Pasivo(models.Model):
     id_pasivo = models.IntegerField(blank=True, )
     date = models.DateField(auto_now=True)
     type = models.CharField(blank=True, max_length=100)
@@ -42,7 +40,7 @@ class Pasivos(models.Model):
     
     def __str__(self):
         return self.name_pasivo
-class Activos(models.Model):
+class Activo(models.Model):
     id_activo = models.IntegerField(blank=True, )
     date = models.DateField(auto_now=True )
     type = models.CharField(blank=True, max_length=100)
@@ -63,9 +61,9 @@ class CatalogoCuentas(models.Model):
 
     # clientes = models.ManyToManyField(Cliente)
     
-    activos = models.ManyToManyField(Activos,blank=True, )
+    activos = models.ManyToManyField(Activo,blank=True, )
 
-    pasivos = models.ManyToManyField(Pasivos,blank=True,)
+    pasivos = models.ManyToManyField(Pasivo,blank=True,)
 
     patrimonio_neto = models.DecimalField(blank=True,max_digits=20, decimal_places=2)
 
@@ -80,3 +78,4 @@ class CatalogoCuentas(models.Model):
     
     def __str__(self):
         return self.id_catalogo
+

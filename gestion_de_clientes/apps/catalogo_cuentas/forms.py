@@ -1,4 +1,4 @@
-from .models import Cuenta,Activos,Pasivos,Country,Banco
+from .models import Cuenta,Activo,Pasivo,Country,Banco
 from django import forms
 from django.utils.safestring import mark_safe
 
@@ -37,13 +37,13 @@ class RawCatalogoForm(forms.Form):
         )
 
     activos = forms.ModelMultipleChoiceField(
-            queryset=Activos.objects.all(),
+            queryset=Activo.objects.all(),
             required=False,
             widget=forms.CheckboxSelectMultiple
         )
 
     pasivos = forms.ModelMultipleChoiceField(
-            queryset=Pasivos.objects.all(),
+            queryset=Pasivo.objects.all(),
             required=False,
             widget=forms.CheckboxSelectMultiple
         )
