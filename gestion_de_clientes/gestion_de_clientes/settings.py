@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'apps.catalogo_cuentas'
+    'apps.catalogo_cuentas',
+    'apps.inicio',
+    'apps.accounts',
+    'apps.user',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +154,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+AUTH_USER_MODEL = "user.User" 
