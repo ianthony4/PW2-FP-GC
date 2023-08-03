@@ -20,21 +20,28 @@ from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
+############################################################
+# VIEWS
 class CatalogoDetailView(DetailView):
     model = CatalogoCuentas
-    template_name = 'catalogo_detail.html'
+    template_name = 'view/catalogo_detail.html'
     context_object_name = 'catalogo'
-
+    pk_url_kwarg = 'id_catalogo'
 class ActivoDetailView(DetailView):
     model = Activo
-    template_name = 'activo_detail.html'
+    template_name = 'view/activo_detail.html'
     context_object_name = 'activo'
+    pk_url_kwarg = 'id_activo'
 
 class PasivoDetailView(DetailView):
     model = Pasivo
-    template_name = 'pasivo_detail.html'
+    template_name = 'view/pasivo_detail.html'
     context_object_name = 'pasivo'
-    
+    pk_url_kwarg = 'id_pasivo'
+
+#########################################################
+# NEWS
+
 def newCatalogo(request):
 
     if request.method=='POST':
@@ -47,9 +54,9 @@ def newCatalogo(request):
         ingresos = request.POST['ingresos']
         saldo_intermediario = request.POST['saldo_intermediario']
         date = date.today()
-        
+
         if country is not None:
-            CatalogoCuentas.objects.create(id_catalogo=abs(int(hash(country))),)
+            CatalogoCuentas.objects.create()
             return redirect('/')
 
     form = RawCatalogoForm()
@@ -57,7 +64,7 @@ def newCatalogo(request):
         'form': form,
     }
 
-    return render(request, 'createNewCatalog.html',context) 
+    return render(request, 'new/newCatalog.html',context) 
 
 def newCountryForm(request):
     if request.method=='POST':
@@ -65,7 +72,7 @@ def newCountryForm(request):
         description = request.POST['description']
 
         if name is not None:
-            Country.objects.create(id_country = abs(int(hash(name))),name=name, description=description)
+            Country.objects.create(name=name, description=description)
             return redirect('/')
     
     form = RawCountryForm()
@@ -73,14 +80,15 @@ def newCountryForm(request):
         'form': form,
     }
     
-    return render(request, 'newCountry.html',context) 
+    return render(request, 'new/newCountry.html',context) 
+
 def newBancoForm(request):
     if request.method=='POST':
         name = request.POST['name']
         description = request.POST['description']
 
         if name is not None:
-            Country.objects.create(id_country = abs(int(hash(name))),name=name, description=description)
+            Country.objects.create(name=name, description=description)
             return redirect('/')
     
     form = RawBancoForm()
@@ -88,7 +96,7 @@ def newBancoForm(request):
         'form': form,
     }
     
-    return render(request, 'newBanco.html',context) 
+    return render(request, 'new/newBanco.html',context) 
 
 
 def newPasivoForm(request):
@@ -97,18 +105,17 @@ def newPasivoForm(request):
         saldo_pasivo = request.POST['saldo']
         type_pasivo= request.POST['type']
         subtype_pasivo = request.POST['subtype']
-        subsubtype_pasivo = request.POST['subsubtype']
         date_pasivo = date.today()
         
         if name_pasivo is not None:
-            Pasivo.objects.create(id_pasivo=abs(int(hash(name_pasivo))), date=date_pasivo,name_pasivo=name_pasivo, saldo=saldo_pasivo, type=type_pasivo, subtype=subtype_pasivo, subsubtype=subsubtype_pasivo)
+            Pasivo.objects.create( date=date_pasivo,name_pasivo=name_pasivo, saldo=saldo_pasivo, type=type_pasivo, subtype=subtype_pasivo)
             return redirect('/')
     
     form = RawPasivoForm()
     context = {
         'form': form,
     }
-    return render(request, 'newPasivo.html',context) 
+    return render(request, 'new/newPasivo.html',context) 
 
 def newActivoForm(request):
     if request.method=='POST':
@@ -116,18 +123,17 @@ def newActivoForm(request):
         saldo_activo = request.POST['saldo']
         type_activo = request.POST['type']
         subtype_activo = request.POST['subtype']
-        subsubtype_activo = request.POST['subsubtype']
         date_activo = date.today()
         
         if name_activo is not None:
-            Activo.objects.create(id_activo=abs(int(hash(name_activo))), date=date_activo,name_activo=name_activo, saldo=saldo_activo, type=type_activo, subtype=subtype_activo, subsubtype=subsubtype_activo)
+            Activo.objects.create( date=date_activo,name_activo=name_activo, saldo=saldo_activo, type=type_activo, subtype=subtype_activo)
             return redirect('/')
     
     form = RawActivoForm()
     context = {
         'form': form,
     }
-    return render(request, 'newActivo.html',context) 
+    return render(request, 'new/newActivo.html',context) 
 
 def newAccountForm(request):
     if request.method == 'POST':
@@ -139,10 +145,9 @@ def newAccountForm(request):
         date_account = date.today()
         mov_deudor = pasivo
         mov_acreedor = activo
-        id_cuenta = abs(int(hash(name_account)))
         
         if name_account is not None:
-            Cuenta.objects.create(date=date_account,name=name_account,type_account=type_account,pasivos=pasivo,activos=activo,mov_deudor=mov_deudor,mov_acreedor=mov_acreedor,id_cuenta=id_cuenta)
+            Cuenta.objects.create(date=date_account,name=name_account,type_account=type_account,pasivos=pasivo,activos=activo,mov_deudor=mov_deudor,mov_acreedor=mov_acreedor)
             return redirect("/")
 
     form = RawCuentaForm()
@@ -150,22 +155,18 @@ def newAccountForm(request):
         'form': form,
     }
     
-    return render(request, 'newAccount.html',context) 
+    return render(request, 'new/newAccount.html',context) 
+
+##########################################################
 class GeneratePdf(View): 
     def get(self, request, *args, **kwargs):
 
         template = get_template('pdf/invoice.html')
 
-        context = {
-            'invoice_id': 123, 
-            'customer_name': 'Vladimir Sulla',
-            'amount': 12000,
-            'today': "Today",
-        }
-        pdf = render_to_pdf('pdf/invoice.html',context)
+        pdf = render_to_pdf('view/catalogo_detail.html',{})
         if pdf:
             response = HttpResponse(pdf, content_type='application/pdf')
-            filename = "Invoice_%s.pdf" %(12341231)
+            filename = "Catalogo_%s.pdf" %(12341231)
             content = "inline; filename=%s" %(filename)
             download = request.GET.get("download")
             if download:

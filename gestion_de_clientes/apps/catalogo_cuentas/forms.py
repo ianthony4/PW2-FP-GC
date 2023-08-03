@@ -1,4 +1,4 @@
-from .models import Cuenta,Activo,Pasivo,Country,Banco
+from .models import Cuenta,Activo,Pasivo,Country,Banco,TypeAccount,SubTypeAccount
 from django import forms
 from django.utils.safestring import mark_safe
 
@@ -13,7 +13,6 @@ TYPE_ACCOUNT_CHOICES = {
     ('Cuenta de pasivo','Cuenta de pasivo'),
     ('Cuenta de capital','Cuenta de Capital'),
     ('Cuenta de orden','Cuenta de orden'),
-
 }
 
 class RawCatalogoForm(forms.Form):
@@ -108,14 +107,27 @@ class RawBancoForm(forms.Form):
 class RawActivoForm(forms.Form):
     name = forms.CharField()   
     saldo = forms.DecimalField()
-    type = forms.CharField()
-    subtype = forms.CharField()
-    subsubtype = forms.CharField()
+    type = forms.ModelChoiceField(
+            queryset=TypeAccount.objects.all(),
+            required=False,
+            empty_label="Selecciona tipo de cuenta",
+        )
+    subtype = forms.ModelChoiceField(
+            queryset=SubTypeAccount.objects.all(),
+            required=False,
+            empty_label="Selecciona subtipo de cuenta",
+        )
 
 class RawPasivoForm(forms.Form):
     name = forms.CharField()   
     saldo = forms.DecimalField()
-    type = forms.CharField()
-    subtype = forms.CharField()
-    subsubtype = forms.CharField()
-    
+    type = forms.ModelChoiceField(
+            queryset=TypeAccount.objects.all(),
+            required=False,
+            empty_label="Selecciona tipo de cuenta",
+        )
+    subtype = forms.ModelChoiceField(
+            queryset=SubTypeAccount.objects.all(),
+            required=False,
+            empty_label="Selecciona subtipo de cuenta",
+        )

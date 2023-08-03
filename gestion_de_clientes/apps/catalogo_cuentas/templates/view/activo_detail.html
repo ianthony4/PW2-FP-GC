@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>new catalog</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static "css/style.css"%}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+  <section class="h-100 h-custom" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important;">
+          <div class="card-body p-5">
+
+            <p class="lead fw-bold mb-5" style="color: #f37a27;">ACTIVO Nº {{activo.id_activo}}</p>
+
+            <div class="row">
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Date</p>
+                <p>{{activo.date}}</p>
+              </div>
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Activo id No.</p>
+                <p>{{activo.id_activo}}</p>
+              </div>
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Tipo</p>
+                <p>{{activo.type}}</p>
+              </div>
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Sub Tipo</p>
+                <p>{{activo.subtype}}</p>
+              </div>
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Name</p>
+                <p>{{activo.name_activo}}</p>
+              </div>
+
+            <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">SALDO</p>
+            <div class="row my-4">
+              <div class="col-md-4 offset-md-8 col-lg-3 offset-lg-9">
+                <p class="lead fw-bold mb-0" style="color: #f37a27;">{{activo.saldo}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
+
