@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
-from apps.user.models import ClienteProfile
+from apps.user.models import ClienteProfile,ContadorProfile
 # Create your views here.
 
 def loginUser(request):
@@ -15,9 +15,16 @@ def loginUser(request):
         print("USER CONUT")
         if user is not None:
             auth.login(request, user)
-            user = ClienteProfile.objects.get(user_id=user.id)
-            id=str(user.cliente_id)
-            return redirect("/?id="+id)
+            if ClienteProfile.objects.filter(user_id=user.id).exists():
+                cliente = ClienteProfile.objects.get(user_id=user.id)
+                id = str(cliente.cliente_id)
+                return redirect("/?id="+id+"&profile=cliente")
+            elif ContadorProfile.objects.filter(user_id=user.id).exists():
+                contador = ContadorProfile.objects.get(user_id=user.id)
+                id = str(contador.contador_id) 
+                return redirect("/?id="+id+"&profile=contador")
+
+            return redirect("/")
         else:
             messages.info(request,'invalid credentials')
             return redirect('login')
