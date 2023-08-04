@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>new catalog</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>NEW CATALOG</h2>
+      <form class="form-vertical" action="#" method="POST">{% csrf_token %}
+        {% for field in form %}
+          <div class="form-group">
+            {{ field.label_tag }} {{ field }}
+            {% if field.html_name == "country" %}<br>
+            <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newCountry/" title="Add another country"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+            {% endif %}
+            {% if field.html_name == "banco" %}<br>
+            <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newBanco/" title="Add another Banco"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+            {% endif %}
+            {% if field.html_name == "activos" %}<br>
+            <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newActivo/" title="Add another activo"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+            {% endif %}
+            {% if field.html_name == "pasivos" %}<br>
+            <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newPasivo/" title="Add another pasivos"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+            {% endif %}
+            {% if field.html_name == "cuentas_de_orden" %}<br>
+            <a class="related-widget-wrapper-link add-related" id="add_id_pasivos" data-popup="yes" href="newAccount/" title="Add another account"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+            {% endif %} 
+          </div>
+        {% endfor %}
+        <input type="submit" value="Guardar"/>
+      </form>
+    </div>
+  </body>
+</html>
