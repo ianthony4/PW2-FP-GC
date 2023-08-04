@@ -35,7 +35,7 @@ urlpatterns = [
     path('newPasivo/',newPasivoForm , name = 'response'),
     path('newActivo/', newActivoForm, name = 'response'),
     path('newAccount/', newAccountForm, name = 'response'),
-    path('newBank/', newBancoForm, name = 'response'),
+    path('newBanco/', newBancoForm, name = 'response'),
 
     path('catalogo/<int:pk>',CatalogoDetailView.as_view()),
     path('activo/<int:pk>',ActivoDetailView.as_view()),
