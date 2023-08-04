@@ -65,9 +65,7 @@ def newCatalogo(request):
         if name is not None:
             user = User.objects.get(username=request.user)
             print(user)
-            print("CONTADOR")
             contador = ContadorProfile.objects.get(user_id=user.id)
-            print(contador)
             
             CatalogoCuentas.objects.create(
                 country_id=country,
