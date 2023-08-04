@@ -4,7 +4,6 @@
 
 
 # Integrantes
-- Chaisa Fernandez, Anthony Leonel
 - Martell Villanueva, Gabriela Vanessa
 - Quenta Ahumada Carlos Alberto
 - Sulla Quispe, Vladimir Arturo
@@ -28,3 +27,4 @@ http://127.0.0.1:8000/activo/<int:pk>
 http://127.0.0.1:8000/pasivo/<int:pk>
 
 ```
+
