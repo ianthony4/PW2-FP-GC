@@ -18,6 +18,6 @@ from django.contrib import admin
 from django.urls import path
 from .views import ClienteDetailView,ContadorDetailView
 urlpatterns = [
-    path('<slug:cliente_id>',ClienteDetailView.as_view()),
-    path('<slug:contador_id>',ContadorDetailView.as_view()),
+    path('cliente/<slug:cliente_id>',ClienteDetailView.as_view()),
+    path('contador/<slug:contador_id>',ContadorDetailView.as_view()),
 ]
