@@ -77,6 +77,10 @@
                 <p class="lead fw-bold mb-0" style="color: #f37a27;">£262.99</p>
               </div>
             </div>
+            <form action="pdf/{{ catalog.id_catalogo }}">
+              <input type="hidden" name="pdf" value="{{ catalogo.id_catalogo }}">
+              <input type="submit" value="PDF">
+            </form>
           </div>
         </div>
       </div>

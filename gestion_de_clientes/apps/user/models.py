@@ -40,6 +40,7 @@ class ContadorProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     name = models.CharField(blank=True,max_length=100)
     contador_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(blank=True)
     phone_number=models.IntegerField(blank=True)
     facebook = models.URLField(blank=True)
     twitter = models.URLField(blank=True)
@@ -47,8 +48,9 @@ class ContadorProfile(models.Model):
     description = models.TextField(blank=True)
     gender = models.CharField(blank=True,max_length=100,choices=GENDER_CHOICES)
     icono_perfil = models.ImageField(blank=True,upload_to=user_directory_path)
-    
+    especialidad = models.CharField(max_length=100) 
     country = models.ForeignKey(Country, blank=True,on_delete=models.CASCADE)
+    cliente = models.ManyToManyField(ClienteProfile, blank=True)
     catalogo_cuentas = models.ManyToManyField(CatalogoCuentas, blank=True)
 
 

@@ -12,7 +12,7 @@ from .views import (newCatalogo,
                     PasivoDetailView,
                     GeneratePdf
                     )
-from .views import newCatalogo,newCountryForm,newPasivoForm,newActivoForm,CatalogoDetailView, loginView, homeView
+from .views import newCatalogo,newCountryForm,newPasivoForm,newActivoForm,CatalogoDetailView 
 
 from .viewsets import ActivoViewSet,PasivoViewSet,CatalogoCuentasViewSet
 from rest_framework import routers
@@ -41,6 +41,7 @@ urlpatterns = [
     path('activo/<int:pk>',ActivoDetailView.as_view()),
     path('pasivo/<int:pk>',PasivoDetailView.as_view()),
     path('<slug:id_catalogo>',CatalogoDetailView.as_view()),
+    path('<slug:id_catalogo>/pdf',GeneratePdf.as_view()),
     path('pdf/', GeneratePdf.as_view(),name='pdf'),
 ]
 

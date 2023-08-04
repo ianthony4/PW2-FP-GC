@@ -1,4 +1,5 @@
 from django.db import models
+
 import uuid
 # Create your models here.
 
@@ -33,6 +34,7 @@ class Cuenta(models.Model):
     
     def __str__(self):
         return self.name
+        
 class TypeAccount(models.Model):
     type_name = models.CharField(max_length=100)    
 
@@ -69,14 +71,11 @@ class Activo(models.Model):
         return self.name_activo
 class CatalogoCuentas(models.Model):
     id_catalogo = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    id_created = models.CharField(blank=True, max_length=100)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     date = models.DateField( auto_now=True )
     type_catalog = models.CharField(blank=True, max_length=100)
     banco = models.ForeignKey(Banco, on_delete=models.CASCADE )
-
-    # clientes = models.ManyToManyField(Cliente)
-    
+    name = models.CharField(max_length=100) 
     activos = models.ManyToManyField(Activo,blank=True, )
 
     pasivos = models.ManyToManyField(Pasivo,blank=True,)
@@ -90,7 +89,8 @@ class CatalogoCuentas(models.Model):
 
     cuentas_de_orden = models.ManyToManyField(Cuenta, blank=True )
 
-    # contador = models.ForeingKey()
+    cliente = models.UUIDField(default=uuid.uuid4(), editable=True,blank=True)
+    contador = models.UUIDField(default=uuid.uuid4(), editable=True,blank=True)
     
     def __str__(self):
         return str(self.id_catalogo)

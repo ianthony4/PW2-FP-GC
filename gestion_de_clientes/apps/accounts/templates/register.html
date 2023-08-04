@@ -25,7 +25,17 @@
                     <input type="email" name="email" placeholder="email" required><br>
                     <input type="password" name="password1" placeholder="Password" required><br>
                     <input type="password" name="password2" placeholder="Confirm Password" required><br>
-                    <input class="btn-login" value="Register">
+                    <input type="radio" name="type_user" id="clienteid" value="cliente">
+                    <label for="clienteid">Cliente</label><br><br>
+                    <input type="radio" name="type_user" id="contadorid" value="contador">
+                    <label for="contadorid">Contador</label><br><br>
+                    <select name="country_id" id="country">
+                        {% for country in country %}
+                            <option value="{{ country.id_country }}">{{ country.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" class="btn-login" value="Register">
+
                 </form>
                 <div>
                 {% for message in messages %}

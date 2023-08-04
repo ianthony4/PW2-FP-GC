@@ -17,7 +17,8 @@ from django.template.loader import get_template
 from .utils import render_to_pdf #created in step 4
 from datetime import date
 from django.contrib.auth import authenticate, login
-
+from django.contrib.auth.models import User 
+from apps.user.models import ClienteProfile,ContadorProfile
 # Create your views here.
 
 ############################################################
@@ -45,19 +46,39 @@ class PasivoDetailView(DetailView):
 def newCatalogo(request):
 
     if request.method=='POST':
-        pasivo = request.POST['pasivo']
-        activo = request.POST['activo']
+
+        print(request.user)
+        pasivos = request.POST.getlist('pasivos')
+        activos = request.POST.getlist('activos')
+        cuentas = request.POST.getlist('cuentas')
         country = request.POST['country']
         type_catalogo= request.POST['type_catalogo']
         patrimonio_neto = request.POST['patrimonio_neto']
         gastos = request.POST['gastos']
+        banco = request.POST['banco']
         ingresos = request.POST['ingresos']
         saldo_intermediario = request.POST['saldo_intermediario']
-        date = date.today()
+        dateToday = date.today()
+        name = request.POST['name']
+        cliente = request.POST['cliente']
 
-        if country is not None:
-            CatalogoCuentas.objects.create()
-            return redirect('/')
+        if name is not None:
+            user = User.objects.get(username=request.user)
+            contador = ContadorProfile.objects.get(user_id=user.id)
+            CatalogoCuentas.objects.create(
+                country_id=country,
+                name=name,
+                date=dateToday,
+                type_catalog=type_catalogo,
+                banco_id=banco,
+                patrimonio_neto=patrimonio_neto,
+                gastos=gastos,
+                ingresos=ingresos,
+                saldo_intermediario=saldo_intermediario,
+                cliente=cliente,
+                contador=contador.contador_id,
+            )
+            return redirect('/user/contador/'+str(contador.contador_id))
 
     form = RawCatalogoForm()
     context = {
@@ -160,10 +181,15 @@ def newAccountForm(request):
 ##########################################################
 class GeneratePdf(View): 
     def get(self, request, *args, **kwargs):
+        pdf = request.GET["pdf"]
 
-        template = get_template('pdf/invoice.html')
+        catalogo = CatalogoCuentas.objects.get(id_catalogo=pdf)
 
-        pdf = render_to_pdf('view/catalogo_detail.html',{})
+        context = {
+            "catalogo" : catalogo
+        } 
+
+        pdf = render_to_pdf('view/catalogo_detail.html',context)
         if pdf:
             response = HttpResponse(pdf, content_type='application/pdf')
             filename = "Catalogo_%s.pdf" %(12341231)
@@ -175,21 +201,3 @@ class GeneratePdf(View):
             return response
         return HttpResponse('No Found')
     
-def homeView(request):
-    return render(request, 'home.html')
-
-def loginView(request):
-    if request.method == "POST":
-        us = request.POST["user"]
-        ps = request.POST["pass"]
-        user = authenticate(request, username=us,password=ps)
-        if user is not None:
-            login(request, user)
-            # Redireccionar a la página deseada después del inicio de sesión exitoso
-            return redirect("catalogo")
-        else:
-            # Mostrar un mensaje de error en la plantilla (opcional)
-            error_message = "Nombre de usuario o contraseña incorrectos."
-            return render(request, "login.html", {'error_message': error_message})
-    return render(request, 'login.html')
-
